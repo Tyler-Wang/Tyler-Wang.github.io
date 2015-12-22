@@ -17,7 +17,7 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/21/Hexo个人博客记录/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
 <meta property="og:description" content="前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。">
-<meta property="og:updated_time" content="2015-12-21T15:46:00.335Z">
+<meta property="og:updated_time" content="2015-12-22T15:22:27.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo个人博客记录">
 <meta name="twitter:description" content="前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。">
@@ -100,7 +100,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u642D_u5EFA_u535A_u5BA2"><span class="toc-number">1.</span> <span class="toc-text">Hexo搭建博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u95EE_u9898_u8BB0_u5F55"><span class="toc-number">2.</span> <span class="toc-text">问题记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_npm_install_-g_hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1. npm install -g hexo</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u642D_u5EFA_u535A_u5BA2"><span class="toc-number">1.</span> <span class="toc-text">Hexo搭建博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u95EE_u9898_u8BB0_u5F55"><span class="toc-number">2.</span> <span class="toc-text">问题记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_npm_install_-g_hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1. npm install -g hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-_hexo3-0"><span class="toc-number">2.2.</span> <span class="toc-text">2. hexo3.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D"><span class="toc-number">2.3.</span> <span class="toc-text">3. hexo deploy提示“ERROR Deployer not found: git”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011"><span class="toc-number">2.4.</span> <span class="toc-text">4. 新建库【用户名.github.io】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801"><span class="toc-number">2.5.</span> <span class="toc-text">5. hexo deploy每次都要输入用户名和密码</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -108,6 +108,10 @@
 <a id="more"></a>
 <h3 id="Hexo_u642D_u5EFA_u535A_u5BA2"><a href="#Hexo_u642D_u5EFA_u535A_u5BA2" class="headerlink" title="Hexo搭建博客"></a>Hexo搭建博客</h3><p>什么是Hexo？怎么使用Hexo和GitHub搭建个人博客？网上有很多文章，我就不班门弄斧啦。我参考的：<br><a href="http://zipperary.com/categories/hexo/" target="_blank" rel="external">http://zipperary.com/categories/hexo/</a><br><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">http://ibruce.info/2013/11/22/hexo-your-blog/</a></p>
 <h3 id="u95EE_u9898_u8BB0_u5F55"><a href="#u95EE_u9898_u8BB0_u5F55" class="headerlink" title="问题记录"></a>问题记录</h3><h4 id="1-_npm_install_-g_hexo"><a href="#1-_npm_install_-g_hexo" class="headerlink" title="1. npm install -g hexo"></a>1. npm install -g hexo</h4><p>-g global 表示全局安装hexo，会使用【npm目录】配置文件npmrc，默认会安装到当前用户的APPDATA目录下，会导致系统盘文件增多，不好。<br>修改配置npmrc的prefix=D:\Program Files\nodejs\node_modules\npm_global_modules<br>如果在修改目录前已安装hexo，Git Bash中输入hexo，会提示命令不存在。<br>因为系统环境变量当前用户的PATH变量还是配置的原APPDATA目录。<br>修改为新的npm安装包路径即可。</p>
+<h4 id="2-_hexo3-0"><a href="#2-_hexo3-0" class="headerlink" title="2. hexo3.0"></a>2. hexo3.0</h4><p>_config.yml中deploy应该是type: git</p>
+<h4 id="3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D"><a href="#3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D" class="headerlink" title="3. hexo deploy提示“ERROR Deployer not found: git”"></a>3. hexo deploy提示“ERROR Deployer not found: git”</h4><p>npm install hexo-deployer-git –save 之后再<br>    hexo generate<br>    hexo deploy</p>
+<h4 id="4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011"><a href="#4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011" class="headerlink" title="4. 新建库【用户名.github.io】"></a>4. 新建库【用户名.github.io】</h4><p>用户名要与你的GitHub用户名一致，如你的用户名是Tyler-Wang，库名就是Tyler-Wang.github.io。<br>不需要像一些教程说的，全部要小写，只需与GitHub的用户名一致就可以。<br>浏览器访问使用<a href="https://Tyler-Wang.github.io" target="_blank" rel="external">https://Tyler-Wang.github.io</a>会自动转化为小写<a href="https://tyler-wang.github.io" target="_blank" rel="external">https://tyler-wang.github.io</a></p>
+<h4 id="5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801"><a href="#5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801" class="headerlink" title="5. hexo deploy每次都要输入用户名和密码"></a>5. hexo deploy每次都要输入用户名和密码</h4><p>repository配置为https时，每次发布都要输入用户名和密码，很烦。<br>在已配置ssh的情况下，可以直接使用ssh路径，如git@github.com:Tyler-Wang/Tyler-Wang.github.io.git</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -162,7 +166,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u642D_u5EFA_u535A_u5BA2"><span class="toc-number">1.</span> <span class="toc-text">Hexo搭建博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u95EE_u9898_u8BB0_u5F55"><span class="toc-number">2.</span> <span class="toc-text">问题记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_npm_install_-g_hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1. npm install -g hexo</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u642D_u5EFA_u535A_u5BA2"><span class="toc-number">1.</span> <span class="toc-text">Hexo搭建博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u95EE_u9898_u8BB0_u5F55"><span class="toc-number">2.</span> <span class="toc-text">问题记录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_npm_install_-g_hexo"><span class="toc-number">2.1.</span> <span class="toc-text">1. npm install -g hexo</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-_hexo3-0"><span class="toc-number">2.2.</span> <span class="toc-text">2. hexo3.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D"><span class="toc-number">2.3.</span> <span class="toc-text">3. hexo deploy提示“ERROR Deployer not found: git”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011"><span class="toc-number">2.4.</span> <span class="toc-text">4. 新建库【用户名.github.io】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801"><span class="toc-number">2.5.</span> <span class="toc-text">5. hexo deploy每次都要输入用户名和密码</span></a></li></ol></li></ol>
  
   </div>
 
