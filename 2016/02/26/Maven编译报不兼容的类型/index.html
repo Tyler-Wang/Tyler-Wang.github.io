@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="github,hexo,个人博客,问题," />
+  <meta name="keywords" content="Maven," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。">
+<meta name="description" content="旧的非Maven项目转化为Maven项目，编译打包时会有较多Warning，大部分Warning并不影响编译打包，可以忽略，但有一些代码会报“不兼容的类型：Object无法转换为T”，导致无法编译通过。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo个人博客记录">
-<meta property="og:url" content="http://yoursite.com/2015/12/21/Hexo个人博客记录/index.html">
+<meta property="og:title" content="Maven编译报不兼容的类型">
+<meta property="og:url" content="http://yoursite.com/2016/02/26/Maven编译报不兼容的类型/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description" content="前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。">
-<meta property="og:updated_time" content="2015-12-22T15:22:27.472Z">
+<meta property="og:description" content="旧的非Maven项目转化为Maven项目，编译打包时会有较多Warning，大部分Warning并不影响编译打包，可以忽略，但有一些代码会报“不兼容的类型：Object无法转换为T”，导致无法编译通过。">
+<meta property="og:updated_time" content="2016-02-26T07:10:34.613Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo个人博客记录">
-<meta name="twitter:description" content="前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。">
+<meta name="twitter:title" content="Maven编译报不兼容的类型">
+<meta name="twitter:description" content="旧的非Maven项目转化为Maven项目，编译打包时会有较多Warning，大部分Warning并不影响编译打包，可以忽略，但有一些代码会报“不兼容的类型：Object无法转换为T”，导致无法编译通过。">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> Hexo个人博客记录 | Tyler-Wang's blog </title>
+  <title> Maven编译报不兼容的类型 | Tyler-Wang's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -214,7 +214,7 @@
             
             
               
-                Hexo个人博客记录
+                Maven编译报不兼容的类型
               
             
           </h1>
@@ -226,8 +226,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-21T22:55:10+08:00" content="2015-12-21">
-              2015-12-21
+            <time itemprop="dateCreated" datetime="2016-02-26T14:42:13+08:00" content="2016-02-26">
+              2016-02-26
             </time>
           </span>
 
@@ -240,8 +240,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/Maven/" itemprop="url" rel="index">
+                    <span itemprop="name">Maven</span>
                   </a>
                 </span>
 
@@ -256,8 +256,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/12/21/Hexo个人博客记录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/21/Hexo个人博客记录/" itemprop="commentsCount"></span>
+                <a href="/2016/02/26/Maven编译报不兼容的类型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/26/Maven编译报不兼容的类型/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -278,14 +278,12 @@
       
 
       
-        <p>前段时间不小心接触到同事的博客，哎呦，不错哦！记笔记，写心得，说心情…；博客实乃工作生活必备之神器。<br>遂也萌发了写自己博客的冲动，说干就干，一个周日早上，基本搭起来了。过程中踩了不少坑，记录下来形成我的博客“处女篇”。</p>
-<a id="more"></a>
-<h3 id="Hexo_u642D_u5EFA_u535A_u5BA2"><a href="#Hexo_u642D_u5EFA_u535A_u5BA2" class="headerlink" title="Hexo搭建博客"></a>Hexo搭建博客</h3><p>什么是Hexo？怎么使用Hexo和GitHub搭建个人博客？网上有很多文章，我就不班门弄斧啦。我参考的：<br><a href="http://zipperary.com/categories/hexo/" target="_blank" rel="external">http://zipperary.com/categories/hexo/</a><br><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">http://ibruce.info/2013/11/22/hexo-your-blog/</a></p>
-<h3 id="u95EE_u9898_u8BB0_u5F55"><a href="#u95EE_u9898_u8BB0_u5F55" class="headerlink" title="问题记录"></a>问题记录</h3><h4 id="1-_npm_install_-g_hexo"><a href="#1-_npm_install_-g_hexo" class="headerlink" title="1. npm install -g hexo"></a>1. npm install -g hexo</h4><p>-g global 表示全局安装hexo，会使用【npm目录】配置文件npmrc，默认会安装到当前用户的APPDATA目录下，会导致系统盘文件增多，不好。<br>修改配置npmrc的prefix=D:\Program Files\nodejs\node_modules\npm_global_modules<br>如果在修改目录前已安装hexo，Git Bash中输入hexo，会提示命令不存在。<br>因为系统环境变量当前用户的PATH变量还是配置的原APPDATA目录。<br>修改为新的npm安装包路径即可。</p>
-<h4 id="2-_hexo3-0"><a href="#2-_hexo3-0" class="headerlink" title="2. hexo3.0"></a>2. hexo3.0</h4><p>_config.yml中deploy应该是type: git</p>
-<h4 id="3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D"><a href="#3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D" class="headerlink" title="3. hexo deploy提示“ERROR Deployer not found: git”"></a>3. hexo deploy提示“ERROR Deployer not found: git”</h4><p>npm install hexo-deployer-git –save 之后再<br>    hexo generate<br>    hexo deploy</p>
-<h4 id="4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011"><a href="#4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011" class="headerlink" title="4. 新建库【用户名.github.io】"></a>4. 新建库【用户名.github.io】</h4><p>用户名要与你的GitHub用户名一致，如你的用户名是Tyler-Wang，库名就是Tyler-Wang.github.io。<br>不需要像一些教程说的，全部要小写，只需与GitHub的用户名一致就可以。<br>浏览器访问使用<a href="https://Tyler-Wang.github.io" target="_blank" rel="external">https://Tyler-Wang.github.io</a>会自动转化为小写<a href="https://tyler-wang.github.io" target="_blank" rel="external">https://tyler-wang.github.io</a></p>
-<h4 id="5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801"><a href="#5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801" class="headerlink" title="5. hexo deploy每次都要输入用户名和密码"></a>5. hexo deploy每次都要输入用户名和密码</h4><p>repository配置为https时，每次发布都要输入用户名和密码，很烦。<br>在已配置ssh的情况下，可以直接使用ssh路径，如git@github.com:Tyler-Wang/Tyler-Wang.github.io.git</p>
+        <p>　　旧的非Maven项目转化为Maven项目，编译打包时会有较多Warning，大部分Warning并不影响<br>编译打包，可以忽略，但有一些代码会报“不兼容的类型：Object无法转换为T”，导致无法编译通过。<br><a id="more"></a></p>
+<h3 id="u539F_u56E0"><a href="#u539F_u56E0" class="headerlink" title="原因"></a>原因</h3><p>　　报“不兼容的类型：Object无法转换为T”错误的原因是：Maven默认采用javac编译器进行代码编译，<br>而javac编译器对代码检查较严格。</p>
+<h3 id="u89E3_u51B3_u529E_u6CD5"><a href="#u89E3_u51B3_u529E_u6CD5" class="headerlink" title="解决办法"></a>解决办法</h3><p>　　网上流行的解决方案是，<br>　　1、开发环境，用Eclipse的JDT编译，正常运行。<br>　　2、Maven编译打包，指定maven-compiler-plugin的compilerId为eclipse，并使用plexus-compiler-eclipse包<br>    <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>3.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="title">target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="title">fork</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">compilerArgument</span>&gt;</span>-nowarn<span class="tag">&lt;/<span class="title">compilerArgument</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">encoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="title">encoding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">compilerId</span>&gt;</span>eclipse<span class="tag">&lt;/<span class="title">compilerId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.codehaus.plexus<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>plexus-compiler-eclipse<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>　　经本人测试发现：mvn compile可正确编译，但其实所有报Warning“Type mismatch”（类型不匹配）的类都没有编译打包，项目启动时会报缺少类，这个办法不可行。</p>
+<h3 id="u6700_u7EC8_u65B9_u6848"><a href="#u6700_u7EC8_u65B9_u6848" class="headerlink" title="最终方案"></a>最终方案</h3><p>　　花了一天时间查找解决办法，最终采用最简单直接的方法，修改代码所有报“Object 无法转化为T”的代码，编译打包通过。    </p>
+<h3 id="u5FC3_u5F97"><a href="#u5FC3_u5F97" class="headerlink" title="心得"></a>心得</h3><p>　　通过解决这个问题过程，最深的感觉是：最简单的方法可能最奏效。</p>
 
       
     </div>
@@ -294,13 +292,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/github/" rel="tag">#github</a>
-          
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
-          
-            <a href="/tags/个人博客/" rel="tag">#个人博客</a>
-          
-            <a href="/tags/问题/" rel="tag">#问题</a>
+            <a href="/tags/Maven/" rel="tag">#Maven</a>
           
         </div>
       
@@ -309,13 +301,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/01/13/被遗弃的Java原生Timer/" rel="next" title="被遗弃的Java原生Timer">
+                <i class="fa fa-chevron-left"></i> 被遗弃的Java原生Timer
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/11/让你的DBCP连接池连接不超时/" rel="prev" title="让你的DBCP连接池连接不超时">
-                让你的DBCP连接池连接不超时 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -341,8 +333,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/21/Hexo个人博客记录/"
-           data-title="Hexo个人博客记录" data-url="http://yoursite.com/2015/12/21/Hexo个人博客记录/">
+      <div class="ds-thread" data-thread-key="2016/02/26/Maven编译报不兼容的类型/"
+           data-title="Maven编译报不兼容的类型" data-url="http://yoursite.com/2016/02/26/Maven编译报不兼容的类型/">
       </div>
     
   </div>
@@ -437,7 +429,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo_u642D_u5EFA_u535A_u5BA2"><span class="nav-number">1.</span> <span class="nav-text">Hexo搭建博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u8BB0_u5F55"><span class="nav-number">2.</span> <span class="nav-text">问题记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-_npm_install_-g_hexo"><span class="nav-number">2.1.</span> <span class="nav-text">1. npm install -g hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-_hexo3-0"><span class="nav-number">2.2.</span> <span class="nav-text">2. hexo3.0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-_hexo_deploy_u63D0_u793A_u201CERROR_Deployer_not_found_3A_git_u201D"><span class="nav-number">2.3.</span> <span class="nav-text">3. hexo deploy提示“ERROR Deployer not found: git”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-__u65B0_u5EFA_u5E93_u3010_u7528_u6237_u540D-github-io_u3011"><span class="nav-number">2.4.</span> <span class="nav-text">4. 新建库【用户名.github.io】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-_hexo_deploy_u6BCF_u6B21_u90FD_u8981_u8F93_u5165_u7528_u6237_u540D_u548C_u5BC6_u7801"><span class="nav-number">2.5.</span> <span class="nav-text">5. hexo deploy每次都要输入用户名和密码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u539F_u56E0"><span class="nav-number">1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u529E_u6CD5"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u6700_u7EC8_u65B9_u6848"><span class="nav-number">3.</span> <span class="nav-text">最终方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5FC3_u5F97"><span class="nav-number">4.</span> <span class="nav-text">心得</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
