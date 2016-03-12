@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Scheduler," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description">
+<meta name="description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="被遗弃的Java原生Timer">
 <meta property="og:url" content="http://yoursite.com/2016/01/13/被遗弃的Java原生Timer/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-01-13T14:47:26.449Z">
+<meta property="og:description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
+<meta property="og:updated_time" content="2016-03-12T03:58:03.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="被遗弃的Java原生Timer">
-<meta name="twitter:description">
+<meta name="twitter:description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
 
 
 
@@ -232,6 +232,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/J2EE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2EE</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -259,11 +278,29 @@
       
 
       
-        
+        <p>　　java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。<br><a id="more"></a></p>
+<h3 id="u539F_u56E0_u5206_u6790"><a href="#u539F_u56E0_u5206_u6790" class="headerlink" title="原因分析"></a>原因分析</h3><ol>
+<li><p>只有一个线程执行定时任务，一个Timer多个任务的情况下，不能保证任务按指定定时策略执行。<br> 如果前一个定时任务执行太久，超过后一个定时任务的定时间隔，后一个任务会延时执行。<br>整个Timer采用“生产者—消费者”模式实现。TaskQueue queue存储定时任务，TimerThread thread执行定时任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * The timer task queue.  This data structure is shared with the timer</span><br><span class="line">    * thread.  The timer produces tasks, via its various schedule calls,</span><br><span class="line">    * and the timer thread consumes, executing timer tasks as appropriate,</span><br><span class="line">    * and removing them from the queue when they're obsolete.</span><br><span class="line">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> TaskQueue queue = <span class="keyword">new</span> TaskQueue();</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span><br><span class="line">    * The timer thread.</span><br><span class="line">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> TimerThread thread = <span class="keyword">new</span> TimerThread(queue);</span><br></pre></td></tr></table></figure>
+<p> TimerTask task.run() 不会开新线程，如果阻塞，后面的任务都会阻塞。</p>
+</li>
+<li><p>只有一个执行定时任务的线程，如果这个线程出现异常而终止，则整个定时任务就终止了，没有可靠性保证。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TimerTask t1 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(<span class="string">"t1 run"</span>);</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">TimerTask t2 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(<span class="string">"t2 run"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">Timer timer = <span class="keyword">new</span> Timer(<span class="string">"Timer"</span>);</span><br><span class="line">timer.scheduleAtFixedRate(t1, <span class="number">2000</span>, <span class="number">1000</span>);</span><br><span class="line">timer.scheduleAtFixedRate(t2, <span class="number">1000</span>, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p> 程序输出：<br> t2 run<br> t2 run<br> t1 run<br> 报除零错，定时线程异常结束，整个定时器结束。</p>
+</li>
+</ol>
+<h3 id="u7ED3_u8BBA"><a href="#u7ED3_u8BBA" class="headerlink" title="结论"></a>结论</h3><p>　　原生Timer已不适合在工程项目中使用，不过看看源码，学习下Java库开发者的思想及实现方法还是可取的。</p>
+
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scheduler/" rel="tag">#Scheduler</a>
+          
+        </div>
       
 
       
@@ -402,7 +439,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u539F_u56E0_u5206_u6790"><span class="nav-number">1.</span> <span class="nav-text">原因分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7ED3_u8BBA"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
