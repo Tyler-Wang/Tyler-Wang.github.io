@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="FastJSON," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description">
+<meta name="description" content="目前正在开发的系统，V2.0版对V1.0版进行了大面积重构。V1.0版Bean采用下滑线命名法，V2.0版Bean采用驼峰命名法，关键的系统间通讯功能要沿用V1.0版设计实现，JSON格式协议也采用V1.0版下滑线命名法，从而产生了一个奇葩需求：Bean转化为JSON对象时，Bean的所有属性名由“驼峰式”转化为“下滑线式”，所有属性值转为字符串类型。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FastJSON初探">
 <meta property="og:url" content="http://yoursite.com/2016/02/29/FastJSON初探/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-02-29T15:03:17.274Z">
+<meta property="og:description" content="目前正在开发的系统，V2.0版对V1.0版进行了大面积重构。V1.0版Bean采用下滑线命名法，V2.0版Bean采用驼峰命名法，关键的系统间通讯功能要沿用V1.0版设计实现，JSON格式协议也采用V1.0版下滑线命名法，从而产生了一个奇葩需求：Bean转化为JSON对象时，Bean的所有属性名由“驼峰式”转化为“下滑线式”，所有属性值转为字符串类型。">
+<meta property="og:updated_time" content="2016-03-12T02:37:01.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FastJSON初探">
-<meta name="twitter:description">
+<meta name="twitter:description" content="目前正在开发的系统，V2.0版对V1.0版进行了大面积重构。V1.0版Bean采用下滑线命名法，V2.0版Bean采用驼峰命名法，关键的系统间通讯功能要沿用V1.0版设计实现，JSON格式协议也采用V1.0版下滑线命名法，从而产生了一个奇葩需求：Bean转化为JSON对象时，Bean的所有属性名由“驼峰式”转化为“下滑线式”，所有属性值转为字符串类型。">
 
 
 
@@ -232,6 +232,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/J2EE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2EE</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -259,11 +278,34 @@
       
 
       
-        
+        <p>　　目前正在开发的系统，V2.0版对V1.0版进行了大面积重构。V1.0版Bean采用下滑线命名法，<br>V2.0版Bean采用驼峰命名法，关键的系统间通讯功能要沿用V1.0版设计实现，JSON格式协议也<br>采用V1.0版下滑线命名法，从而产生了一个奇葩需求：<br><strong>Bean转化为JSON对象时，Bean的所有属性名由“驼峰式”转化为“下滑线式”，所有属性值转为字符串类型。</strong><br><a id="more"></a></p>
+<h3 id="u89E3_u51B3_u65B9_u6CD5"><a href="#u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="解决方法"></a>解决方法</h3><blockquote>
+<ol>
+<li>自己写一个类，利用“反射”，将Bean的属性名和属性值进行转化，最后组成JSON字符串。<br> 方案实现起来稍麻烦，且对List、Map等集合属性处理复杂。可以尝试，但不推荐。</li>
+<li>json-lib不行，只能针对某个特定对象的某种类型的属性做转化。</li>
+<li>gson没研究，网上说可行。有时间研究下。</li>
+<li>FastJSON可行，项目也有用FastJSON，所有采用FastJSON实现。</li>
+</ol>
+</blockquote>
+<h3 id="u5B9E_u73B0_u4EE3_u7801"><a href="#u5B9E_u73B0_u4EE3_u7801" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> NameFilter nf = <span class="keyword">new</span> NameFilter() &#123;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> String <span class="title">process</span><span class="params">(Object object, String name, Object value)</span> </span>&#123;</span><br><span class="line">           <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">           <span class="keyword">return</span> CamelUnderlineUtil.camelToUnderline(name);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> ValueFilter vf = <span class="keyword">new</span> ValueFilter() &#123;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> Object <span class="title">process</span><span class="params">(Object object, String name, Object value)</span> </span>&#123;</span><br><span class="line">           <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">           <span class="keyword">if</span>(value == <span class="keyword">null</span>)&#123;</span><br><span class="line">               <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(value <span class="keyword">instanceof</span> Enum)&#123;</span><br><span class="line">               Method[] marr = value.getClass().getMethods();</span><br><span class="line">               <span class="keyword">for</span>(Method m : marr)&#123;</span><br><span class="line">                   <span class="keyword">if</span>(m.getName().equals(<span class="string">"ordinal"</span>))&#123;</span><br><span class="line">                       <span class="keyword">try</span> &#123;</span><br><span class="line">                           <span class="keyword">return</span> m.invoke(value, <span class="keyword">null</span>).toString();</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                           <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</span><br><span class="line">                           <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">                           <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(value <span class="keyword">instanceof</span> Integer)&#123;</span><br><span class="line">               <span class="keyword">return</span> value.toString();</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(value <span class="keyword">instanceof</span> Date)&#123;</span><br><span class="line">               <span class="keyword">return</span> DateUtil.format((Date)value, DateUtil.defaultDateTimePatternStr);</span><br><span class="line">           &#125;<span class="keyword">else</span> <span class="keyword">if</span>(value <span class="keyword">instanceof</span> BigDecimal)&#123;</span><br><span class="line">               <span class="keyword">return</span> ((BigDecimal) value).setScale(<span class="number">2</span>, BigDecimal.ROUND_HALF_UP).toString();</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> value;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line">String json = JSON.toJSONString(obj, <span class="keyword">new</span> SerializeFilter[]&#123;nf, vf&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u5B9E_u73B0_u5173_u952E_u70B9"><a href="#u5B9E_u73B0_u5173_u952E_u70B9" class="headerlink" title="实现关键点"></a>实现关键点</h3><blockquote>
+<ul>
+<li>FastJSON1.1.42及以上版本，JSON.toJSONString方法才支持SerializeFilter数组做参数。</li>
+<li>采用反射方法获取Bean中Enum类型属性值。</li>
+</ul>
+</blockquote>
+<h3 id="u53C2_u8003_u8D44_u6599"><a href="#u53C2_u8003_u8D44_u6599" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://www.csdn.net/article/2014-09-25/2821866" target="_blank" rel="external">静行：FastJSON实现详解</a></p>
+
       
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FastJSON/" rel="tag">#FastJSON</a>
+          
+        </div>
       
 
       
@@ -356,7 +398,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -365,7 +407,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -398,7 +440,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u65B9_u6CD5"><span class="nav-number">1.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B9E_u73B0_u4EE3_u7801"><span class="nav-number">2.</span> <span class="nav-text">实现代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B9E_u73B0_u5173_u952E_u70B9"><span class="nav-number">3.</span> <span class="nav-text">实现关键点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u53C2_u8003_u8D44_u6599"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
