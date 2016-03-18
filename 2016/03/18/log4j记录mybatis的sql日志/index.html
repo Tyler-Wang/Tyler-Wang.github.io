@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
+<meta name="description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将**Mapper接口类和**Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
 <meta property="og:type" content="article">
 <meta property="og:title" content="log4j记录mybatis的sql日志">
 <meta property="og:url" content="http://yoursite.com/2016/03/18/log4j记录mybatis的sql日志/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
-<meta property="og:updated_time" content="2016-03-18T15:19:48.512Z">
+<meta property="og:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将**Mapper接口类和**Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
+<meta property="og:updated_time" content="2016-03-18T15:29:18.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="log4j记录mybatis的sql日志">
-<meta name="twitter:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
+<meta name="twitter:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将**Mapper接口类和**Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
 
 
 
@@ -278,7 +278,7 @@
       
 
       
-        <p>　　以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。<br>新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将<strong>Mapper接口类和</strong>Mapper.xml文件关联，<br>无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？<br><a id="more"></a></p>
+        <p>　　以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。<br>新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将**Mapper接口类和**Mapper.xml文件关联，<br>无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？<br><a id="more"></a></p>
 <h3 id="u6D41_u884C_u89E3_u51B3_u65B9_u6848"><a href="#u6D41_u884C_u89E3_u51B3_u65B9_u6848" class="headerlink" title="流行解决方案"></a>流行解决方案</h3><p>　　网上大部分教程都是如下配置，<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log4j.logger.com.ibatis=DEBUG</span><br><span class="line">log4j.logger.java.sql.Statement=DEBUG</span><br><span class="line">log4j.logger.java.sql.PreparedStatement=DEBUG</span><br></pre></td></tr></table></figure></p>
 <p>需要设置log4j.rootCategory=DEBUG，各个库输出的DEBUG信息太多，完全看不了。可以逐一设置各个库的日志级别，需要查各个库的logger标记，比较麻烦。</p>
 <h3 id="u5B98_u65B9_u65B9_u6848"><a href="#u5B98_u65B9_u65B9_u6848" class="headerlink" title="官方方案"></a>官方方案</h3><p>　　通过各种查找（不得不吐糟百度太low，想要真资料还得备梯子！），MyBatis的官网有推荐。<br>Mybatis内置的日志工厂提供日志功能，具体的日志实现有以下几种方式：</p>
