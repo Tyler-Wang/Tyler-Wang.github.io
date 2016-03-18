@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Scheduler," />
+  <meta name="keywords" content="log4j,mybatis," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
+<meta name="description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="被遗弃的Java原生Timer">
-<meta property="og:url" content="http://yoursite.com/2016/01/13/被遗弃的Java原生Timer/index.html">
+<meta property="og:title" content="log4j记录mybatis的sql日志">
+<meta property="og:url" content="http://yoursite.com/2016/03/18/log4j记录mybatis的sql日志/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
-<meta property="og:updated_time" content="2016-03-12T03:58:03.493Z">
+<meta property="og:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
+<meta property="og:updated_time" content="2016-03-18T15:19:48.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="被遗弃的Java原生Timer">
-<meta name="twitter:description" content="java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。">
+<meta name="twitter:title" content="log4j记录mybatis的sql日志">
+<meta name="twitter:description" content="以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将Mapper接口类和Mapper.xml文件关联，无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> 被遗弃的Java原生Timer | Tyler-Wang's blog </title>
+  <title> log4j记录mybatis的sql日志 | Tyler-Wang's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -214,7 +214,7 @@
             
             
               
-                被遗弃的Java原生Timer
+                log4j记录mybatis的sql日志
               
             
           </h1>
@@ -226,8 +226,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-13T22:47:26+08:00" content="2016-01-13">
-              2016-01-13
+            <time itemprop="dateCreated" datetime="2016-03-18T22:13:23+08:00" content="2016-03-18">
+              2016-03-18
             </time>
           </span>
 
@@ -256,8 +256,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/13/被遗弃的Java原生Timer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/13/被遗弃的Java原生Timer/" itemprop="commentsCount"></span>
+                <a href="/2016/03/18/log4j记录mybatis的sql日志/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/18/log4j记录mybatis的sql日志/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -278,18 +278,39 @@
       
 
       
-        <p>　　java.util.Timer是从jdk1.3版本就存在的java原生定时器实现，现在做项目已经不推荐使用它来实现定时任务，为什么呢？让我们从源码上一探究竟。<br><a id="more"></a></p>
-<h3 id="u539F_u56E0_u5206_u6790"><a href="#u539F_u56E0_u5206_u6790" class="headerlink" title="原因分析"></a>原因分析</h3><ol>
-<li><p>只有一个线程执行定时任务，一个Timer多个任务的情况下，不能保证任务按指定定时策略执行。<br> 如果前一个定时任务执行太久，超过后一个定时任务的定时间隔，后一个任务会延时执行。<br>整个Timer采用“生产者—消费者”模式实现。TaskQueue queue存储定时任务，TimerThread thread执行定时任务。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">    * The timer task queue.  This data structure is shared with the timer</span><br><span class="line">    * thread.  The timer produces tasks, via its various schedule calls,</span><br><span class="line">    * and the timer thread consumes, executing timer tasks as appropriate,</span><br><span class="line">    * and removing them from the queue when they're obsolete.</span><br><span class="line">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> TaskQueue queue = <span class="keyword">new</span> TaskQueue();</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span><br><span class="line">    * The timer thread.</span><br><span class="line">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">final</span> TimerThread thread = <span class="keyword">new</span> TimerThread(queue);</span><br></pre></td></tr></table></figure>
-<p> TimerTask task.run() 不会开新线程，如果阻塞，后面的任务都会阻塞。</p>
+        <p>　　以前做项目数据访问层使用SpringJDBC或MyBatis-SqlSessionTemplate，可以直接log执行的sql语句。<br>新项目虽使用MyBatis3，但使用MapperScannerConfigurer直接将<strong>Mapper接口类和</strong>Mapper.xml文件关联，<br>无法直接打印sql日志，有问题时怀疑sql也不好定位，怎么办呢？<br><a id="more"></a></p>
+<h3 id="u6D41_u884C_u89E3_u51B3_u65B9_u6848"><a href="#u6D41_u884C_u89E3_u51B3_u65B9_u6848" class="headerlink" title="流行解决方案"></a>流行解决方案</h3><p>　　网上大部分教程都是如下配置，<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">log4j.logger.com.ibatis=DEBUG</span><br><span class="line">log4j.logger.java.sql.Statement=DEBUG</span><br><span class="line">log4j.logger.java.sql.PreparedStatement=DEBUG</span><br></pre></td></tr></table></figure></p>
+<p>需要设置log4j.rootCategory=DEBUG，各个库输出的DEBUG信息太多，完全看不了。可以逐一设置各个库的日志级别，需要查各个库的logger标记，比较麻烦。</p>
+<h3 id="u5B98_u65B9_u65B9_u6848"><a href="#u5B98_u65B9_u65B9_u6848" class="headerlink" title="官方方案"></a>官方方案</h3><p>　　通过各种查找（不得不吐糟百度太low，想要真资料还得备梯子！），MyBatis的官网有推荐。<br>Mybatis内置的日志工厂提供日志功能，具体的日志实现有以下几种方式：</p>
+<blockquote>
+<ul>
+<li>SLF4J</li>
+<li>Apache Commons Logging</li>
+<li>Log4j 2</li>
+<li>Log4j</li>
+<li>JDK logging</li>
+</ul>
+</blockquote>
+<p>按上述优先级顺序查找，使用最先找到的。如果一个都未找到，日志功能被禁用。<br>如果 Commons Logging存在(项目引入了slf4j-jdk**.jar)，Log4j就会被忽略。<br>可以采用配置方式使用Log4j，<strong>mybatis-config.xml</strong>增加：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">settings</span>&gt;</span> </span><br><span class="line">		<span class="tag">&lt;<span class="title">setting</span> <span class="attribute">name</span>=<span class="value">"logImpl"</span> <span class="attribute">value</span>=<span class="value">"LOG4J"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">settings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其他日志logImpl对应配置：<br>SLF4J,LOG4J,LOG4J2,JDK_LOGGING,COMMONS_LOGGING,STDOUT_LOGGING,NO_LOGGING。</p>
+<p>log4j.properties配置文件增加，</p>
+<blockquote>
+<ol>
+<li>可使用mapper接口包名或mapper配置文件的命名空间namespace；</li>
+<li>级别可选TRACE或DEBUG；</li>
+<li>可指定到某个查询方法。<br>如，<br>log4j.logger.com.tt.is.vems.dao.parkoperation=trace<br>log4j.logger.com.tt.is.vems.dao.parkoperation.selectByQueryParam=debug</li>
+</ol>
+</blockquote>
+<h3 id="u95EE_u9898"><a href="#u95EE_u9898" class="headerlink" title="问题"></a>问题</h3><p>设置过程中遇到2个问题，记录如下，</p>
+<blockquote>
+<ol>
+<li><p>去掉slf4j-jdk14包，即去掉Apache Commons Logging，启动时报如下错，<br>java.lang.NoSuchMethodError: org.apache.log4j.Logger.isTraceEnabled()Z<br>定位到是项目引用的包com.emay.client.emay-client里面有一个Logger实现，导致动态加载的Logger错误。</p>
 </li>
-<li><p>只有一个执行定时任务的线程，如果这个线程出现异常而终止，则整个定时任务就终止了，没有可靠性保证。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TimerTask t1 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(<span class="string">"t1 run"</span>);</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">1</span>/<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">TimerTask t2 = <span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(<span class="string">"t2 run"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">Timer timer = <span class="keyword">new</span> Timer(<span class="string">"Timer"</span>);</span><br><span class="line">timer.scheduleAtFixedRate(t1, <span class="number">2000</span>, <span class="number">1000</span>);</span><br><span class="line">timer.scheduleAtFixedRate(t2, <span class="number">1000</span>, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p> 程序输出：<br> t2 run<br> t2 run<br> t1 run<br> 报除零错，定时线程异常结束，整个定时器结束。</p>
+<li><p>日志输出不是完整的sql语句，分3条输出：带占位符sql语句，参数，返回结果条数。具体原因下回揭晓。<br>selectByQueryParam.debug(139) | ==&gt;  Preparing: select * from tb_park_real_time_car WHERE enter_time &gt;= ? and enter_time &lt;= ?  order by enter_time DESC limit 0,10<br>selectByQueryParam.debug(139) | ==&gt; Parameters: 2016-03-08 00:00:00(String), 2016-03-08 23:59:59(String)<br>selectByQueryParam.debug(139) | &lt;==      Total: 0</p>
 </li>
 </ol>
-<h3 id="u7ED3_u8BBA"><a href="#u7ED3_u8BBA" class="headerlink" title="结论"></a>结论</h3><p>　　原生Timer已不适合在工程项目中使用，不过看看源码，学习下Java库开发者的思想及实现方法还是可取的。</p>
+</blockquote>
+<h3 id="u53C2_u8003_u8D44_u6599"><a href="#u53C2_u8003_u8D44_u6599" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://blog.csdn.net/isea533/article/details/22931341" target="_blank" rel="external">http://blog.csdn.net/isea533/article/details/22931341</a><br><a href="http://www.cnblogs.com/jeevan/p/3493972.html" target="_blank" rel="external">http://www.cnblogs.com/jeevan/p/3493972.html</a><br><a href="http://www.mybatis.org/mybatis-3/zh/logging.html" target="_blank" rel="external">http://www.mybatis.org/mybatis-3/zh/logging.html</a></p>
 
       
     </div>
@@ -298,7 +319,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scheduler/" rel="tag">#Scheduler</a>
+            <a href="/tags/log4j/" rel="tag">#log4j</a>
+          
+            <a href="/tags/mybatis/" rel="tag">#mybatis</a>
           
         </div>
       
@@ -307,17 +330,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/12/初探Spring-Scheduler/" rel="next" title="初探Spring Scheduler">
-                <i class="fa fa-chevron-left"></i> 初探Spring Scheduler
+              <a href="/2016/03/12/Hexo博客修改分类/" rel="next" title="Hexo博客修改分类">
+                <i class="fa fa-chevron-left"></i> Hexo博客修改分类
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/02/26/Maven编译报不兼容的类型/" rel="prev" title="Maven编译报不兼容的类型">
-                Maven编译报不兼容的类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -343,8 +362,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/01/13/被遗弃的Java原生Timer/"
-           data-title="被遗弃的Java原生Timer" data-url="http://yoursite.com/2016/01/13/被遗弃的Java原生Timer/">
+      <div class="ds-thread" data-thread-key="2016/03/18/log4j记录mybatis的sql日志/"
+           data-title="log4j记录mybatis的sql日志" data-url="http://yoursite.com/2016/03/18/log4j记录mybatis的sql日志/">
       </div>
     
   </div>
@@ -439,7 +458,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u539F_u56E0_u5206_u6790"><span class="nav-number">1.</span> <span class="nav-text">原因分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u7ED3_u8BBA"><span class="nav-number">2.</span> <span class="nav-text">结论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u6D41_u884C_u89E3_u51B3_u65B9_u6848"><span class="nav-number">1.</span> <span class="nav-text">流行解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u5B98_u65B9_u65B9_u6848"><span class="nav-number">2.</span> <span class="nav-text">官方方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u53C2_u8003_u8D44_u6599"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
