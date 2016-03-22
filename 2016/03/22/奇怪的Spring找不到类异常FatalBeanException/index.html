@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="Spring," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="今天写完博客FastJSON初探，觉得之前定的分类categories不大合理，就修改了下重新部署，部署后访问发现首页博客篇数少几篇，删除重新部署还是不对。什么原因呢？">
+<meta name="description" content="今天接手一个Maven项目，导入部署一切正常，运行Tomcat到Spring初始化上下文时就报java.lang.NoClassDefFoundError: org.springframework.beans.FatalBeanException，再三确认项目lib，有spring-beans这个jar包，各种修改发布引用的包路径和重新部署，依旧不行，非常奇怪。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客修改分类">
-<meta property="og:url" content="http://yoursite.com/2016/03/12/Hexo博客修改分类/index.html">
+<meta property="og:title" content="奇怪的Spring找不到类异常FatalBeanException">
+<meta property="og:url" content="http://yoursite.com/2016/03/22/奇怪的Spring找不到类异常FatalBeanException/index.html">
 <meta property="og:site_name" content="Tyler-Wang's blog">
-<meta property="og:description" content="今天写完博客FastJSON初探，觉得之前定的分类categories不大合理，就修改了下重新部署，部署后访问发现首页博客篇数少几篇，删除重新部署还是不对。什么原因呢？">
-<meta property="og:updated_time" content="2016-03-12T03:27:50.095Z">
+<meta property="og:description" content="今天接手一个Maven项目，导入部署一切正常，运行Tomcat到Spring初始化上下文时就报java.lang.NoClassDefFoundError: org.springframework.beans.FatalBeanException，再三确认项目lib，有spring-beans这个jar包，各种修改发布引用的包路径和重新部署，依旧不行，非常奇怪。">
+<meta property="og:updated_time" content="2016-03-22T14:12:44.580Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo博客修改分类">
-<meta name="twitter:description" content="今天写完博客FastJSON初探，觉得之前定的分类categories不大合理，就修改了下重新部署，部署后访问发现首页博客篇数少几篇，删除重新部署还是不对。什么原因呢？">
+<meta name="twitter:title" content="奇怪的Spring找不到类异常FatalBeanException">
+<meta name="twitter:description" content="今天接手一个Maven项目，导入部署一切正常，运行Tomcat到Spring初始化上下文时就报java.lang.NoClassDefFoundError: org.springframework.beans.FatalBeanException，再三确认项目lib，有spring-beans这个jar包，各种修改发布引用的包路径和重新部署，依旧不行，非常奇怪。">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> Hexo博客修改分类 | Tyler-Wang's blog </title>
+  <title> 奇怪的Spring找不到类异常FatalBeanException | Tyler-Wang's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -214,7 +214,7 @@
             
             
               
-                Hexo博客修改分类
+                奇怪的Spring找不到类异常FatalBeanException
               
             
           </h1>
@@ -226,8 +226,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-12T11:08:46+08:00" content="2016-03-12">
-              2016-03-12
+            <time itemprop="dateCreated" datetime="2016-03-22T12:26:34+08:00" content="2016-03-22">
+              2016-03-22
             </time>
           </span>
 
@@ -240,8 +240,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/J2EE/" itemprop="url" rel="index">
+                    <span itemprop="name">J2EE</span>
                   </a>
                 </span>
 
@@ -256,8 +256,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/12/Hexo博客修改分类/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/12/Hexo博客修改分类/" itemprop="commentsCount"></span>
+                <a href="/2016/03/22/奇怪的Spring找不到类异常FatalBeanException/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/22/奇怪的Spring找不到类异常FatalBeanException/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -278,17 +278,17 @@
       
 
       
-        <p>　　今天写完博客<a href="http://tyler-wang.github.io/2016/02/29/FastJSON%E5%88%9D%E6%8E%A2/" target="_blank" rel="external">FastJSON初探</a>，觉得之前定的分类categories不大合理，就修改了下重新部署，<br>部署后访问发现首页博客篇数少几篇，删除重新部署还是不对。什么原因呢？<br><a id="more"></a></p>
-<h3 id="u539F_u56E0_u67E5_u627E"><a href="#u539F_u56E0_u67E5_u627E" class="headerlink" title="原因查找"></a>原因查找</h3><p>　　经网上查询，有人指出是“hexo一次generate不能完成页面生成”，具体参考<a href="https://www.zhihu.com/question/39130089/answer/79832633" target="_blank" rel="external">hexo博文分类数和标签数显示不正确</a>。<br>半信半疑试了下，真是这样。记录下来，以作备忘。</p>
-<h3 id="u89E3_u51B3_u6B65_u9AA4"><a href="#u89E3_u51B3_u6B65_u9AA4" class="headerlink" title="解决步骤"></a>解决步骤</h3><blockquote>
+        <p>　　今天接手一个Maven项目，导入部署一切正常，运行Tomcat到Spring初始化上下文时就报<br><strong>java.lang.NoClassDefFoundError: org.springframework.beans.FatalBeanException</strong>，<br>再三确认项目lib，有spring-beans这个jar包，各种修改发布引用的包路径和重新部署，依旧不行，非常奇怪。<br><a id="more"></a></p>
+<h3 id="u95EE_u9898_u63CF_u8FF0"><a href="#u95EE_u9898_u63CF_u8FF0" class="headerlink" title="问题描述"></a>问题描述</h3><p>　　运行Tomcat，Spring上下文尚未初始化成功就抛出找不到类异常，堆栈信息如下，<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2016</span>-<span class="number">03</span>-<span class="number">21</span> <span class="number">21</span>:<span class="number">31</span>:<span class="number">44</span> [org.springframework.web.context.ContextLoader]-[ERROR] Context initialization failed</span><br><span class="line">java.lang.NoClassDefFoundError: org.springframework.beans.FatalBeanException</span><br><span class="line">   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:<span class="number">547</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:<span class="number">476</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.AbstractBeanFactory$<span class="number">1</span>.getObject(AbstractBeanFactory.java:<span class="number">303</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:<span class="number">230</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:<span class="number">299</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:<span class="number">194</span>)</span><br><span class="line">   at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:<span class="number">755</span>)</span><br><span class="line">   at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:<span class="number">757</span>)</span><br><span class="line">   at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:<span class="number">480</span>)</span><br><span class="line">   at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:<span class="number">434</span>)</span><br><span class="line">   at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:<span class="number">306</span>)</span><br><span class="line">   at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:<span class="number">106</span>)</span><br><span class="line">   at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:<span class="number">4738</span>)</span><br><span class="line">   at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:<span class="number">5181</span>)</span><br><span class="line">   at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:<span class="number">150</span>)</span><br><span class="line">   at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:<span class="number">725</span>)</span><br><span class="line">   at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:<span class="number">701</span>)</span><br><span class="line">   at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:<span class="number">717</span>)</span><br><span class="line">   at org.apache.catalina.startup.HostConfig.deployDescriptor(HostConfig.java:<span class="number">586</span>)</span><br><span class="line">   at org.apache.catalina.startup.HostConfig$DeployDescriptor.run(HostConfig.java:<span class="number">1780</span>)</span><br><span class="line">   at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)</span><br><span class="line">   at java.util.concurrent.FutureTask.run(Unknown Source)</span><br><span class="line">   at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)</span><br><span class="line">   at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)</span><br><span class="line">   at java.lang.Thread.run(Unknown Source)</span><br></pre></td></tr></table></figure></p>
+<h3 id="u89E3_u51B3_u8FC7_u7A0B"><a href="#u89E3_u51B3_u8FC7_u7A0B" class="headerlink" title="解决过程"></a>解决过程</h3><blockquote>
 <ol>
-<li>hexo clean 清掉public和cache</li>
-<li>hexo d 把github上的也删除</li>
-<li>hexo g</li>
-<li>hexo g</li>
-<li>hexo d</li>
+<li>按正常思维，报哪个类找不到就看那个类有没有，对应的jar有没有引用部署，确定是部署且存在的，正常思维行不通。</li>
+<li>怀疑虽有引用，但类的确有可能找不到，在自己业务代码中直接声明一个FatalBeanException引用，运行通过，说明Spring报这个类找不到，并不是这个类找不到，可能是其他错误。</li>
+<li>根据堆栈信息在对应类代码上打断点，Debug运行跟踪AbstractAutowireCapableBeanFactory.doCreateBean()方法，发现抛出的实际异常是<strong>java.lang.StackOverflowError</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Initialize the bean instance.</span></span><br><span class="line">Object exposedObject = bean;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	populateBean(beanName, mbd, instanceWrapper);</span><br><span class="line">	<span class="keyword">if</span> (exposedObject != <span class="keyword">null</span>) &#123;</span><br><span class="line">		exposedObject = initializeBean(beanName, exposedObject, mbd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">	<span class="keyword">if</span> (ex <span class="keyword">instanceof</span> BeanCreationException &amp;&amp; beanName.equals(((BeanCreationException) ex).getBeanName())) &#123;</span><br><span class="line">		<span class="keyword">throw</span> (BeanCreationException) ex;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//抛出的是这个异常，ex为java.lang.StackOverflowError</span></span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> BeanCreationException(mbd.getResourceDescription(), beanName, <span class="string">"Initialization of bean failed"</span>, ex);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </blockquote>
+<h3 id="u89E3_u51B3_u529E_u6CD5"><a href="#u89E3_u51B3_u529E_u6CD5" class="headerlink" title="解决办法"></a>解决办法</h3><p>　　定位到是<strong>java.lang.StackOverflowError</strong>，问题就迎刃而解。增大Tomcat运行时JVM的栈大小-Xss512k。</p>
 
       
     </div>
@@ -297,7 +297,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag">#hexo</a>
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
           
         </div>
       
@@ -306,17 +306,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/02/29/FastJSON初探/" rel="next" title="FastJSON初探">
-                <i class="fa fa-chevron-left"></i> FastJSON初探
+              <a href="/2016/03/18/log4j记录mybatis的sql日志/" rel="next" title="log4j记录mybatis的sql日志">
+                <i class="fa fa-chevron-left"></i> log4j记录mybatis的sql日志
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/18/log4j记录mybatis的sql日志/" rel="prev" title="log4j记录mybatis的sql日志">
-                log4j记录mybatis的sql日志 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -342,8 +338,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/12/Hexo博客修改分类/"
-           data-title="Hexo博客修改分类" data-url="http://yoursite.com/2016/03/12/Hexo博客修改分类/">
+      <div class="ds-thread" data-thread-key="2016/03/22/奇怪的Spring找不到类异常FatalBeanException/"
+           data-title="奇怪的Spring找不到类异常FatalBeanException" data-url="http://yoursite.com/2016/03/22/奇怪的Spring找不到类异常FatalBeanException/">
       </div>
     
   </div>
@@ -438,7 +434,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u539F_u56E0_u67E5_u627E"><span class="nav-number">1.</span> <span class="nav-text">原因查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u6B65_u9AA4"><span class="nav-number">2.</span> <span class="nav-text">解决步骤</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#u95EE_u9898_u63CF_u8FF0"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u8FC7_u7A0B"><span class="nav-number">2.</span> <span class="nav-text">解决过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#u89E3_u51B3_u529E_u6CD5"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
